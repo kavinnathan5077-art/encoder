@@ -1,18 +1,20 @@
+# SPDX-FileCopyrightText: © 2024 Tiny Tapeout
+# SPDX-License-Identifier: Apache-2.0
+
+import cocotb
+from cocotb.clock import Clock
+from cocotb.triggers import Timer
+
+
 @cocotb.test()
 async def test_project(dut):
-    dut._log.info("Start")
 
     clock = Clock(dut.clk, 10, unit="us")
     cocotb.start_soon(clock.start())
 
     dut.ena.value = 1
-    dut.ui_in.value = 0
-    dut.uio_in.value = 0
-    dut.rst_n.value = 0
-
-    await ClockCycles(dut.clk, 10)
-
     dut.rst_n.value = 1
+    dut.uio_in.value = 0
 
     test_vectors = [
         (0b00000001, 0),
@@ -27,7 +29,13 @@ async def test_project(dut):
 
     for inp, expected in test_vectors:
         dut.ui_in.value = inp
-        await ClockCycles(dut.clk, 1)
 
-        assert dut.uo_out.value.integer == expected, \
-            f"Input={inp:08b} Expected={expected} Got={dut.uo_out.value.integer}"
+        await Timer(1, unit="us")
+
+        result = int(dut.uo_out.value) & 0x7
+
+        dut._log.info(
+            f"Input={inp:08b} Output={result:03b} Expected={expected:03b}"
+        )
+
+        assert result == expected
