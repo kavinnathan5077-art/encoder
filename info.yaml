@@ -9,6 +9,7 @@ project:
   top_module: "tt_um_encoder"
   source_files:
     - project.v
+  clock_hz: 0
 
 pinout:
   ui[0]: "D0"
@@ -37,5 +38,3 @@ pinout:
   uio[5]: ""
   uio[6]: ""
   uio[7]: ""
-
-clock_hz: 0
