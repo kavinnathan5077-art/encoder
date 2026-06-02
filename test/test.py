@@ -3,7 +3,7 @@
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import Timer
+from cocotb.triggers import ClockCycles
 
 
 @cocotb.test()
@@ -30,7 +30,7 @@ async def test_project(dut):
     for inp, expected in test_vectors:
         dut.ui_in.value = inp
 
-        await Timer(1, unit="us")
+       await ClockCycles(dut.clk, 1)
 
         result = int(dut.uo_out.value) & 0x7
 
