@@ -30,7 +30,7 @@ async def test_project(dut):
     for inp, expected in test_vectors:
         dut.ui_in.value = inp
 
-       await ClockCycles(dut.clk, 1)
+        await ClockCycles(dut.clk, 1)
 
         result = int(dut.uo_out.value) & 0x7
 
