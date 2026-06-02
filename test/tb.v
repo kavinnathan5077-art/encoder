@@ -24,41 +24,4 @@ module tb;
         .rst_n(rst_n)
     );
 
-    initial begin
-        clk = 0;
-        forever #5 clk = ~clk;
-    end
-
-    initial begin
-        ena = 1;
-        rst_n = 1;
-        uio_in = 0;
-
-        ui_in = 8'b00000001; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b00000010; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b00000100; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b00001000; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b00010000; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b00100000; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b01000000; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        ui_in = 8'b10000000; #10;
-        $display("Input=%b Output=%b", ui_in, uo_out);
-
-        $finish;
-    end
-
 endmodule
